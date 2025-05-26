@@ -1,130 +1,277 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     AppBar,
     Toolbar,
     Typography,
     Button,
+    Box,
+    Container,
     IconButton,
     Menu,
     MenuItem,
-    Box,
     InputBase,
-    Paper,
-    Divider
+    useMediaQuery
 } from '@mui/material';
-import {
-    AccountCircle,
-    FavoriteBorder,
-    Search
-} from '@mui/icons-material';
+import { Menu as MenuIcon, Search, FavoriteBorder, AccountCircle } from '@mui/icons-material';
+import { styled, useTheme } from '@mui/material/styles';
+
+const StyledAppBar = styled(AppBar)(({  }) => ({
+    backgroundColor: '#D4AF37',
+    color: 'black',
+    boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+    position: 'sticky',
+    top: 0,
+    zIndex: 1200,
+}));
+
+const CenterGroup = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: theme.spacing(1.5),
+    flex: 2,
+    minWidth: 320,
+    maxWidth: 600,
+}));
+
+const SearchBar = styled('form')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    background: '#f9f6e7',
+    borderRadius: 20,
+    padding: '2px 16px',
+    boxShadow: 'none',
+    minWidth: 220,
+    maxWidth: 420,
+    width: '100%',
+    border: '2px solid #222',
+    fontWeight: 500,
+    marginBottom: theme.spacing(1),
+}));
+
+const NavLinksRow = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    justifyContent: 'center',
+    gap: theme.spacing(5),
+    marginTop: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
+}));
+
+const NavLink = styled(Button)(({ theme }) => ({
+    color: 'black',
+    fontWeight: 700,
+    fontSize: 18,
+    textTransform: 'none',
+    background: 'none',
+    minWidth: 0,
+    padding: '6px 18px',
+    position: 'relative',
+    letterSpacing: 0.5,
+    textShadow: '0 1px 2px #fff, 0 0 2px #fff',
+    transition: 'color 0.2s',
+    '&::after': {
+        content: '""',
+        position: 'absolute',
+        left: '50%',
+        bottom: 2,
+        width: '0%',
+        height: '2px',
+        background: '#222',
+        transition: 'all 0.3s cubic-bezier(.4,0,.2,1)',
+        transform: 'translateX(-50%)',
+    },
+    '&:hover': {
+        color: theme.palette.primary.main,
+    },
+    '&:hover::after': {
+        width: '80%',
+        background: theme.palette.primary.main,
+    },
+}));
+
+const IconLabelBox = styled(Box)(({  }) => ({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    mx: 1.5,
+    minWidth: 48,
+}));
 
 const Navbar = () => {
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
+    const [exploreAnchor, setExploreAnchor] = useState<null | HTMLElement>(null);
+    const [exploreMenuOpen, setExploreMenuOpen] = useState(false);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const [profileAnchorEl, setProfileAnchorEl] = useState<null | HTMLElement>(null);
+    const isProfileMenuOpen = Boolean(profileAnchorEl);
 
-    const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+    const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
+        setProfileAnchorEl(event.currentTarget);
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    const handleProfileMenuClose = () => {
+        setProfileAnchorEl(null);
+    };
+
+    const handleExploreClick = (event: React.MouseEvent<HTMLElement>) => {
+        if (exploreMenuOpen) {
+            setExploreAnchor(null);
+            setExploreMenuOpen(false);
+        } else {
+            setExploreAnchor(event.currentTarget);
+            setExploreMenuOpen(true);
+        }
+    };
+
+    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        setMobileMenuAnchor(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setMobileMenuAnchor(null);
+        setExploreMenuOpen(false);
+        setExploreAnchor(null);
     };
 
     return (
-        <AppBar position="static" sx={{
-            backgroundColor: '#D4AF37',
-            color: 'black',
-            boxShadow: 'none',
-            opacity: 0.6
-        }}>
-            <Toolbar sx={{ flexDirection: 'column', alignItems: 'stretch', minHeight: '110px !important', px: { xs: 1, md: 6 } }}>
-                {/* Top Row - Logo, Search, Icons */}
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    width: '100%',
-                    mb: 1
-                }}>
+        <StyledAppBar>
+            <Container maxWidth="xl" sx={{ position: 'relative', px: { xs: 1, md: 4 } }}>
+                <Toolbar disableGutters sx={{ minHeight: 72, px: 0 }}>
                     {/* Logo */}
-                    <Typography variant="h6" component="div" sx={{ fontWeight: 'bold', fontFamily: 'serif', fontSize: { xs: 22, md: 28 } }}>
-                        Explore EGYPT
-                    </Typography>
-
-                    {/* Search Bar */}
-                    <Paper
-                        component="form"
-                        sx={{
-                            p: '2px 4px',
-                            display: 'flex',
-                            alignItems: 'center',
-                            width: { xs: 180, sm: 300, md: 400 },
-                            border: '1px solid #ccc',
-                            boxShadow: 'none',
-                            background: 'white',
-                            opacity: 1
-                        }}
-                    >
-                        <InputBase
-                            sx={{ ml: 1, flex: 1 }}
-                            placeholder="Enter desired destination"
-                            inputProps={{ 'aria-label': 'search tours' }}
-                        />
-                        <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                            <Search />
-                        </IconButton>
-                    </Paper>
-
-                    {/* Icons */}
-                    <Box>
-                        <IconButton color="inherit" sx={{ mr: 1 }}>
-                            <FavoriteBorder />
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleMenu}
-                            color="inherit"
+                    <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                        <Typography
+                            variant="h6"
+                            sx={{ fontWeight: 'bold', fontFamily: 'serif', fontSize: { xs: 20, md: 28 } }}
                         >
-                            <AccountCircle />
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorEl}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={open}
-                            onClose={handleClose}
-                        >
-                            <MenuItem onClick={handleClose}>Sign Up</MenuItem>
-                            <MenuItem onClick={handleClose}>Login</MenuItem>
-                        </Menu>
+                            Explore EGYPT
+                        </Typography>
                     </Box>
-                </Box>
 
-                {/* Bottom Row - Navigation Links */}
-                <Box sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 4,
-                    width: '100%'
-                }}>
-                    <Button color="inherit" sx={{ fontWeight: 400, fontSize: 16 }}>Home</Button>
-                    <Button color="inherit" sx={{ fontWeight: 400, fontSize: 16 }}>Your Tours</Button>
-                    <Button color="inherit" sx={{ fontWeight: 400, fontSize: 16 }}>Explore</Button>
-                </Box>
-            </Toolbar>
-        </AppBar>
+                    {/* Centered group */}
+                    {!isMobile && (
+                        <CenterGroup>
+                            <SearchBar>
+                                <InputBase
+                                    sx={{ ml: 1, flex: 1, fontSize: 16, fontWeight: 500 }}
+                                    placeholder="Enter desired destination"
+                                    inputProps={{ 'aria-label': 'search tours' }}
+                                />
+                                <IconButton type="submit" sx={{ p: '6px' }} aria-label="search">
+                                    <Search />
+                                </IconButton>
+                            </SearchBar>
+                            <NavLinksRow>
+                                <NavLink>Home</NavLink>
+                                <NavLink>Our Tours</NavLink>
+                                <NavLink
+                                    onClick={handleExploreClick}
+                                    aria-controls={exploreMenuOpen ? 'explore-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={exploreMenuOpen ? 'true' : undefined}
+                                >
+                                    Explore
+                                </NavLink>
+                                <Menu
+                                    id="explore-menu"
+                                    anchorEl={exploreAnchor}
+                                    open={exploreMenuOpen}
+                                    onClose={handleMenuClose}
+                                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                                    disableAutoFocusItem
+                                >
+                                    <MenuItem onClick={handleMenuClose}>Destinations</MenuItem>
+                                    <MenuItem onClick={handleMenuClose}>Virtual Tours</MenuItem>
+                                    <MenuItem onClick={handleMenuClose}>Cultural Experiences</MenuItem>
+                                </Menu>
+                            </NavLinksRow>
+                        </CenterGroup>
+                    )}
+
+                    {/* Icons right */}
+                    <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: 2 }}>
+                        {!isMobile && (
+                            <>
+                                <IconLabelBox>
+                                    <IconButton color="inherit">
+                                        <FavoriteBorder fontSize="medium" />
+                                    </IconButton>
+                                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>Wishlist</Typography>
+                                </IconLabelBox>
+                                <IconLabelBox>
+                                    <IconButton color="inherit" onClick={handleProfileClick}>
+                                        <AccountCircle fontSize="medium" />
+                                    </IconButton>
+                                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>Profile</Typography>
+                                </IconLabelBox>
+                            </>
+                        )}
+                        {isMobile && (
+                            <IconButton
+                                size="large"
+                                onClick={handleMobileMenuOpen}
+                                color="inherit"
+                                aria-label="menu"
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                        )}
+                    </Box>
+                </Toolbar>
+
+                {/* Mobile Search Bar */}
+                {isMobile && (
+                    <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', pb: 1 }}>
+                        <SearchBar sx={{ width: '100%' }}>
+                            <InputBase
+                                sx={{ ml: 1, flex: 1, fontSize: 15 }}
+                                placeholder="Enter desired destination"
+                                inputProps={{ 'aria-label': 'search tours' }}
+                            />
+                            <IconButton type="submit" sx={{ p: '6px' }} aria-label="search">
+                                <Search />
+                            </IconButton>
+                        </SearchBar>
+                    </Box>
+                )}
+
+                {/* Mobile Menu */}
+                <Menu
+                    anchorEl={mobileMenuAnchor}
+                    open={Boolean(mobileMenuAnchor)}
+                    onClose={handleMenuClose}
+                    sx={{ display: { xs: 'block', md: 'none' } }}
+                >
+                    <MenuItem onClick={handleMenuClose}>Home</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Our Tours</MenuItem>
+                    <MenuItem onClick={handleExploreClick}>Explore</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>Wishlist</MenuItem>
+                    <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+                </Menu>
+
+                {/* Profile Menu */}
+                <Menu
+                    anchorEl={profileAnchorEl}
+                    open={isProfileMenuOpen}
+                    onClose={handleProfileMenuClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                >
+                    <MenuItem onClick={handleProfileMenuClose}>Login</MenuItem>
+                    <MenuItem onClick={handleProfileMenuClose}>Sign Up</MenuItem>
+                    <MenuItem onClick={handleProfileMenuClose}>Contact Us</MenuItem>
+                </Menu>
+            </Container>
+        </StyledAppBar>
     );
 };
 
