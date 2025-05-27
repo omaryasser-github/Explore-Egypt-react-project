@@ -2,6 +2,7 @@ import { Box, Typography, Container, Paper } from '@mui/material';
 import Navbar from '../common Components/navbar';
 import Footer from '../common Components/footer';
 
+
 function Homepage() {
   return (
     <div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
     AppBar,
     Toolbar,
@@ -14,8 +14,9 @@ import {
 } from '@mui/material';
 import { Menu as MenuIcon, Search, FavoriteBorder, AccountCircle } from '@mui/icons-material';
 import { styled, useTheme } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
-const StyledAppBar = styled(AppBar)(({  }) => ({
+const StyledAppBar = styled(AppBar)(() => ({
     backgroundColor: '#D4AF37',
     color: 'black',
     boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
@@ -91,7 +92,7 @@ const NavLink = styled(Button)(({ theme }) => ({
     },
 }));
 
-const IconLabelBox = styled(Box)(({  }) => ({
+const IconLabelBox = styled(Box)(() => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -107,6 +108,20 @@ const Navbar = () => {
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
     const [profileAnchorEl, setProfileAnchorEl] = useState<null | HTMLElement>(null);
     const isProfileMenuOpen = Boolean(profileAnchorEl);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setIsLoggedIn(localStorage.getItem('user') === 'true');
+    }, []);
+
+    // دالة عامة للتنقل
+    const handleNavigate = (path: string) => {
+        navigate(path);
+        handleMenuClose();
+        handleProfileMenuClose();
+    };
 
     const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
         setProfileAnchorEl(event.currentTarget);
@@ -136,15 +151,33 @@ const Navbar = () => {
         setExploreAnchor(null);
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem('user');
+        setIsLoggedIn(false);
+        handleProfileMenuClose();
+        navigate('/login');
+    };
+
     return (
         <StyledAppBar>
             <Container maxWidth="xl" sx={{ position: 'relative', px: { xs: 1, md: 4 } }}>
                 <Toolbar disableGutters sx={{ minHeight: 72, px: 0 }}>
-                    {/* Logo */}
+                    {/* Logo as link to Home */}
                     <Box sx={{ flex: 1, display: 'flex', alignItems: 'center' }}>
                         <Typography
                             variant="h6"
-                            sx={{ fontWeight: 'bold', fontFamily: 'serif', fontSize: { xs: 20, md: 28 } }}
+                            sx={{
+                                fontWeight: 'bold',
+                                fontFamily: 'serif',
+                                fontSize: { xs: 20, md: 28 },
+                                textDecoration: 'none',
+                                color: 'black',
+                                cursor: 'pointer',
+                                '&:hover': {
+                                    color: theme.palette.primary.main,
+                                },
+                            }}
+                            onClick={() => handleNavigate('/')}
                         >
                             Explore EGYPT
                         </Typography>
@@ -164,13 +197,14 @@ const Navbar = () => {
                                 </IconButton>
                             </SearchBar>
                             <NavLinksRow>
-                                <NavLink>Home</NavLink>
-                                <NavLink>Our Tours</NavLink>
+                                <NavLink onClick={() => handleNavigate('/')}>Home</NavLink>
+                                <NavLink onClick={() => handleNavigate('/ourtours')}>Our Tours</NavLink>
                                 <NavLink
                                     onClick={handleExploreClick}
                                     aria-controls={exploreMenuOpen ? 'explore-menu' : undefined}
                                     aria-haspopup="true"
                                     aria-expanded={exploreMenuOpen ? 'true' : undefined}
+                                    sx={{ cursor: 'pointer' }}
                                 >
                                     Explore
                                 </NavLink>
@@ -183,9 +217,10 @@ const Navbar = () => {
                                     transformOrigin={{ vertical: 'top', horizontal: 'center' }}
                                     disableAutoFocusItem
                                 >
-                                    <MenuItem onClick={handleMenuClose}>Destinations</MenuItem>
-                                    <MenuItem onClick={handleMenuClose}>Virtual Tours</MenuItem>
-                                    <MenuItem onClick={handleMenuClose}>Cultural Experiences</MenuItem>
+                                    <MenuItem onClick={() => { handleNavigate('/Giza'); }}>Giza</MenuItem>
+                                    <MenuItem onClick={() => { handleNavigate('/Sohage'); }}>Sohage</MenuItem>
+                                    <MenuItem onClick={() => { handleNavigate('/Fayoum'); }}>Fayoum</MenuItem>
+                                    <MenuItem onClick={() => { handleNavigate('/Aswan'); }}>Aswan</MenuItem>
                                 </Menu>
                             </NavLinksRow>
                         </CenterGroup>
@@ -199,23 +234,22 @@ const Navbar = () => {
                                     <IconButton color="inherit">
                                         <FavoriteBorder fontSize="medium" />
                                     </IconButton>
-                                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>Wishlist</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>
+                                        Wishlist
+                                    </Typography>
                                 </IconLabelBox>
                                 <IconLabelBox>
                                     <IconButton color="inherit" onClick={handleProfileClick}>
                                         <AccountCircle fontSize="medium" />
                                     </IconButton>
-                                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>Profile</Typography>
+                                    <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>
+                                        Profile
+                                    </Typography>
                                 </IconLabelBox>
                             </>
                         )}
                         {isMobile && (
-                            <IconButton
-                                size="large"
-                                onClick={handleMobileMenuOpen}
-                                color="inherit"
-                                aria-label="menu"
-                            >
+                            <IconButton size="large" onClick={handleMobileMenuOpen} color="inherit" aria-label="menu">
                                 <MenuIcon />
                             </IconButton>
                         )}
@@ -245,8 +279,8 @@ const Navbar = () => {
                     onClose={handleMenuClose}
                     sx={{ display: { xs: 'block', md: 'none' } }}
                 >
-                    <MenuItem onClick={handleMenuClose}>Home</MenuItem>
-                    <MenuItem onClick={handleMenuClose}>Our Tours</MenuItem>
+                    <MenuItem onClick={() => handleNavigate('/')}>Home</MenuItem>
+                    <MenuItem onClick={() => handleNavigate('/ourtours')}>Our Tours</MenuItem>
                     <MenuItem onClick={handleExploreClick}>Explore</MenuItem>
                     <MenuItem onClick={handleMenuClose}>Wishlist</MenuItem>
                     <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
@@ -266,9 +300,10 @@ const Navbar = () => {
                         horizontal: 'right',
                     }}
                 >
-                    <MenuItem onClick={handleProfileMenuClose}>Login</MenuItem>
-                    <MenuItem onClick={handleProfileMenuClose}>Sign Up</MenuItem>
-                    <MenuItem onClick={handleProfileMenuClose}>Contact Us</MenuItem>
+                    {!isLoggedIn && <MenuItem onClick={() => handleNavigate('/login')}>Login</MenuItem>}
+                    {!isLoggedIn && <MenuItem onClick={() => handleNavigate('/SignUp')}>Sign Up</MenuItem>}
+                    <MenuItem onClick={() => handleNavigate('/contact-us')}>Contact Us</MenuItem>
+                    {isLoggedIn && <MenuItem onClick={handleLogout}>Logout</MenuItem>}
                 </Menu>
             </Container>
         </StyledAppBar>
