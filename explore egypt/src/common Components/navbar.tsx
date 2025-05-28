@@ -116,7 +116,7 @@ const Navbar = () => {
         setIsLoggedIn(localStorage.getItem('user') === 'true');
     }, []);
 
-    // دالة عامة للتنقل
+   
     const handleNavigate = (path: string) => {
         navigate(path);
         handleMenuClose();
