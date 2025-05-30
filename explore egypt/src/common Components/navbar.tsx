@@ -231,7 +231,7 @@ const Navbar = () => {
                         {!isMobile && (
                             <>
                                 <IconLabelBox>
-                                    <IconButton color="inherit">
+                                    <IconButton color="inherit" onClick={() => handleNavigate('/wishlist')}>
                                         <FavoriteBorder fontSize="medium" />
                                     </IconButton>
                                     <Typography variant="caption" sx={{ fontWeight: 500, fontSize: 13, mt: -0.5 }}>

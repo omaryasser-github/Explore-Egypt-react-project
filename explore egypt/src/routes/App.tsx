@@ -6,6 +6,7 @@ import Logout from '../pages/auth/logout';
 import ContactUs from '../pages/contact us';
 import OurTours from '../pages/Ourtours';
 import Payment from '../pages/Payment';
+import Wishlist from '../pages/wishlist';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/wishlist" element={<Wishlist />} />
       </Routes>
     </Router>
   );
