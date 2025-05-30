@@ -6,7 +6,7 @@ import Logout from '../pages/auth/logout';
 import ContactUs from '../pages/contact us';
 import OurTours from '../pages/Ourtours';
 import Payment from '../pages/Payment';
-import Wishlist from '../pages/wishlist';
+import Wishlist from '../pages/Wishlist';
 
 
 function App() {
