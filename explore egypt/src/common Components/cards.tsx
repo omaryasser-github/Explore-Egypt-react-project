@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Paper, Typography, Button, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 interface FlipCardProps {
   img: string;
@@ -10,6 +11,7 @@ interface FlipCardProps {
 
 const FlipCard: React.FC<FlipCardProps> = ({ img, title, desc, note }) => {
   const [flipped, setFlipped] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -49,8 +51,13 @@ const FlipCard: React.FC<FlipCardProps> = ({ img, title, desc, note }) => {
           <img src={img} alt={title} style={{ width: '100%', height: 180, objectFit: 'cover', borderRadius: 8, marginBottom: 12 }} />
           <Typography variant="subtitle1" sx={{ fontSize: 24,fontWeight: 'bold', mb: 4, color: '#222', fontFamily: 'serif' }}>{title}</Typography>
           <Typography variant="body2" sx={{ color: '#444', mb: 1, textAlign: 'center' ,whiteSpace: 'pre-line' }}>{desc}</Typography>
-          <Button variant="contained" sx={{ bgcolor: '#D4AF37', color: 'black', fontWeight: 900, borderRadius: 2, mt: 'auto', '&:hover': { bgcolor: '#bfa233' } }}>
-            Book Now
+          <Button variant="contained" sx={{ bgcolor: '#D4AF37', color: 'black', fontWeight: 900,width:200 , height:40, borderRadius: 4, mt: 'auto', '&:hover': { bgcolor: '#bfa233' } }}
+            onClick={e => {
+              e.stopPropagation();
+              navigate('/payment', { state: { img, title, desc, note } });
+            }}
+          >
+            Book Now!
           </Button>
         </Paper>
         {/* Back */}

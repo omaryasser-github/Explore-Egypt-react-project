@@ -5,6 +5,7 @@ import SignUp from '../pages/auth/signup';
 import Logout from '../pages/auth/logout';
 import ContactUs from '../pages/contact us';
 import OurTours from '../pages/Ourtours';
+import Payment from '../pages/Payment';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
     </Router>
   );
