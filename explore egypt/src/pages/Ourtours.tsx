@@ -2,6 +2,18 @@ import { Box, Container, Typography } from '@mui/material';
 import Navbar from '../common Components/navbar';
 import Footer from '../common Components/footer';
 import FlipCard from '../common Components/cards';
+import Pyramids from "../assets/IMG-20250528-WA0002.jpg";
+import Solar  from "../assets/IMG-20250528-WA0004.jpg";
+import King  from "../assets/IMG-20250528-WA0009.jpg";
+import Templet  from "../assets/IMG-20250528-WA0008.jpg";
+import Abydos  from "../assets/IMG-20250528-WA0008.jpg";
+import Wady  from "../assets/IMG-20250528-WA0006.jpg";
+import Dier  from "../assets/IMG-20250528-WA0005.jpg";
+import Hawara  from "../assets/IMG-20250528-WA0005.jpg";
+import Phalie  from "../assets/IMG-20250528-WA0010.jpg";
+import Abusimbil  from "../assets/IMG-20250528-WA0012.jpg";
+
+
 
 const cityData = [
   {
@@ -9,13 +21,13 @@ const cityData = [
     cards: [
       {
         title: 'Enter the Pyramids',
-        img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+        img: Pyramids,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
       {
         title: 'Visit Solar Boat Museum',
-        img: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
+        img: Solar,
         desc: 'Visit Solar Boat Museum Why: See Khufu’s 4,600-year-old cedar ship, a stunning relic of afterlife voyages. Hours: 9 AM–4 PM;last entry 3:30 PM. Price: ~$5 (240 EGP).',
         note: 'Note: Advance booking is recommended.'
       },
@@ -26,13 +38,13 @@ const cityData = [
     cards: [
       {
         title: 'Valley of the Kings',
-        img: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80',
+        img: King,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
       {
         title: 'Karnak Temple Complex',
-        img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+        img: Templet,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
@@ -43,13 +55,13 @@ const cityData = [
     cards: [
       {
         title: 'Abydos Temple',
-        img: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=400&q=80',
+        img: Abydos,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
       {
         title: 'Osireion',
-        img: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
+        img: Dier,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
@@ -60,13 +72,13 @@ const cityData = [
     cards: [
       {
         title: 'Philae Temple',
-        img: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80',
+        img: Phalie,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
       {
         title: 'Abu Simbel Temples',
-        img: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+        img: Abusimbil,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
@@ -77,13 +89,13 @@ const cityData = [
     cards: [
       {
         title: 'Wadi El Rayan',
-        img: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3fdc?auto=format&fit=crop&w=400&q=80',
+        img: Wady,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },
       {
         title: 'Hawara Pyramid',
-        img: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
+        img:Hawara,
         desc: 'Why: Crawl through tight passages to the Great Pyramid’s King’s Chamber or explore Khafre/Menkaure’s smaller interiors.\nHours: 8 AM–4 PM (limited tickets). \nPrice: Great Pyramid ~$18 (900 EGP); Khafre/Menkaure ~$5.60 (280 EGP). ',
         note: 'Note:\nNot for claustrophobic.\nLimited tickets; arrive early or book a ticket.\nNo photos inside'
       },

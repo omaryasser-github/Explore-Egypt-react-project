@@ -1,6 +1,7 @@
 import { Box, Typography, Container, Paper } from '@mui/material';
 import Navbar from '../common Components/navbar';
 import Footer from '../common Components/footer';
+import HomeImage from "../assets/explore egypt image home page.jpg"
 
 
 function Homepage() {
@@ -26,7 +27,7 @@ function Homepage() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: 'url(https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80)',
+          backgroundImage: `url(${HomeImage})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           opacity: 0.3,
